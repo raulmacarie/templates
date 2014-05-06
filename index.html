@@ -38,8 +38,7 @@
         </div>
       </div>
     </div>
-  </div>
-
+  
     <!-- Update Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -58,6 +57,11 @@
         </div>
       </div>
     </div>
+  
+  </div>
+
+  <div id="bootstrap-modal">
+
   </div>
 
   <div id="content">
@@ -65,16 +69,16 @@
   </div>
 
   <div>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="1" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">
       Template 1
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="2" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">
       Template 2
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="3" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">
       Template 3
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="4" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">
       Template 4
     </button>
 
@@ -94,6 +98,36 @@
       <a class="view" href="#" data-value="<%- title %>"><%- title %></a>
       <a class="destroy glyphicon glyphicon-remove-sign"></a>
     </div>
+  </script>
+
+  <script type="text/template" id="modal-template">
+    <form name="input" action="#" method="POST" id="formTemplate">
+      <div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="template1">Template design </h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="type" value="<%- data.type %>" id="type-modal"> 
+                    <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
+                    <% 
+                      if(data.type == 2) {
+                      %></br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea><%
+                      } else if(data.type>2) {
+                        %></br><label for="file">Select file: </label><input type="file" id="files" name="files[]" title="test />
+                          <input type="hidden" name="content" value="<%- data.content %>" id="modal-content"> 
+                    <%}%>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="save-modal-template">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </script>
 
   <script type="text/template" id="content-template">

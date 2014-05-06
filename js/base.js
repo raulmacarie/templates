@@ -1,14 +1,52 @@
 $(function(){
 
+  $.fn.serializeObject = function() {
+     var o = {};
+     var a = this.serializeArray();
+     $.each(a, function() {
+         if (o[this.name]) {
+             if (!o[this.name].push) {
+                 o[this.name] = [o[this.name]];
+             }
+             o[this.name].push(this.value || '');
+         } else {
+             o[this.name] = this.value || '';
+         }
+     });
+     return o;
+  };
+
   $('#Add-Button').click( function () {
       $('.template-btn').prop('disabled', false);
     });
 
-  $('.modal').on('hidden.bs.modal', function () {
-      $('.template-btn').prop('disabled', true);
-  })
+  var hideModal = function () {
+        $('.modal').on('hidden.bs.modal', function () {
+          $('.template-btn').prop('disabled', true);
+        });
+      }
 
-  
+  $('.template-btn').click( function(){
+      var type = $(this).attr('data-value');
+      var data = {type: type};
+      parsedTemplate = _.template(modalTemplate, {data: data});
+      $('#bootstrap-modal').html(parsedTemplate);
+      $('#templateModal').modal('show');
+      $('#save-modal-template').click(function(){       
+        $('#templateModal').modal('hide');
+        if (type > 2) {
+          var filename = $('#files').val().split('\\').pop();
+          $('#modal-content').val(filename);
+        }
+        var data = $('#formTemplate').serializeObject();
+        App.saveTemplate(data);
+      });
+      hideModal();
+  });
+
+  var modalTemplate = $('#modal-template').html();
+
+
   var Template = Backbone.Model.extend({
 
     defaults: function() {
@@ -65,8 +103,11 @@ $(function(){
     },
 
     edit: function() {
-      $('#updateModal').modal('show');
-      $("#update-title").val(this.model.get('title'));
+      parsedTemplate = _.template(modalTemplate, {data:this.model.attributes});
+      $('#bootstrap-modal').html(parsedTemplate);
+      $('#templateModal').modal('show');      
+      //$('#updateModal').modal('show');
+      //$("#update-title").val(this.model.get('title'));
       //this.input.val('test' + Templates.get('title'));
     },
 
@@ -75,7 +116,6 @@ $(function(){
     },
 
     update: function() {
-      alert('here');
       var value = $("#update-title").val();
       if (!value) {
         this.clear();
@@ -122,11 +162,11 @@ $(function(){
       Templates.each(this.addOne, this);
     },
 
-    saveTemplate: function(e) {
-      if (!this.input.val()) return;
-      Templates.create({type: 1, title: this.input.val()});
-      this.input.val('');
-      $('#saveModal').modal('hide');
+    saveTemplate: function(data) {
+      //if (!this.input.val()) return;
+      Templates.create(data);
+      //this.input.val('');
+      //$('#saveModal').modal('hide');
     }
 
 });
