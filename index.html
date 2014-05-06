@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Backbone.js Templates</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+
+
+  <div id="templatesapp">
+
+    <ul id="templates-list"></ul>
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" id="Add-Button">
+      Add
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="template1">Template1</h4>
+          </div>
+          <div class="modal-body">
+                  <input id="template-title" type="text">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="save-template">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Update Modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="template1">Template1</h4>
+          </div>
+          <div class="modal-body">
+                  <input id="update-title" type="text">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="update-template">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="content">
+    
+  </div>
+
+  <div>
+    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="1" disabled="disabled">
+      Template 1
+    </button>
+    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="2" disabled="disabled">
+      Template 2
+    </button>
+    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="3" disabled="disabled">
+      Template 3
+    </button>
+    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="4" disabled="disabled">
+      Template 4
+    </button>
+
+  </div>
+  
+  <script src="js/jquery.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/backbone.localStorage.js"></script>
+  <script src="js/base.js"></script>
+
+  <!-- Templates -->
+
+  <script type="text/template" id="item-template">
+    <div>
+      <a class="view" href="#" data-value="<%- title %>"><%- title %></a>
+      <a class="destroy glyphicon glyphicon-remove-sign"></a>
+    </div>
+  </script>
+
+  <script type="text/template" id="content-template">
+    <div>
+      <h3><%- title %></h3>
+    </div>
+  </script>
+
+  </body>
+</html>
