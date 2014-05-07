@@ -124,9 +124,6 @@ $(function(){
       });
       
       hideModal();      
-      //$('#updateModal').modal('show');
-      //$("#update-title").val(this.model.get('title'));
-      //this.input.val('test' + Templates.get('title'));
     },
 
     load: function() {
@@ -172,10 +169,7 @@ $(function(){
     },
 
     saveTemplate: function(data) {
-      //if (!this.input.val()) return;
       Templates.create(data);
-      //this.input.val('');
-      //$('#saveModal').modal('hide');
     }
 
 });

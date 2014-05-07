@@ -12,13 +12,13 @@
     <script src="js/lib/less-1.7.0.min.js"></script>
     <script src="js/lib/jquery.ui.position.js"></script>
     <script src="js/lib/jquery.contextMenu.js"></script>
-    <script src="js/ui.js"></script>
 
     <script src="js/lib/underscore.js"></script>
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/backbone.js"></script>
     <script src="js/lib/backbone.localStorage.js"></script>
     <script src="js/base.js"></script>
+    <script src="js/ui.js"></script>
 </head>
 
 <body>
@@ -53,13 +53,12 @@
   
   <!-- Templates -->
   <script type="text/template" id="item-template">
-    <div class="slide-thumbnail">
+    <li class="slide-thumbnail">
       <span class="title"><%- title %></span>
         <div class="image">
             <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 140px"/>
         </div>
-      <a class="destroy glyphicon glyphicon-remove-sign"></a>
-    </div>
+    </li>
   </script>
 
   <script type="text/template" id="modal-template">

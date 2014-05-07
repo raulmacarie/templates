@@ -23,7 +23,7 @@ $(document).ready(function () {
         selector: 'li.slide-thumbnail',
         callback: function(key, options) {
             var m = "clicked: " + key;
-
+            TemplateView2.clear();
             window.console && console.log(m) || alert(m);
         },
         items: {
