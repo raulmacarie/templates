@@ -19,9 +19,22 @@ $(document).ready(function () {
             thumbnail.removeClass("hover").addClass("active");
         });
 
+    $("#add-slide-button").click(function () {
+        $("#right-hand-panel").show();
+    });
+
+    $("body").mousedown(function (e) {
+        var rightHandPanel = $("#right-hand-panel");
+
+        if (e.target !== rightHandPanel[0]
+                && !rightHandPanel.find(e.target).length) {
+            rightHandPanel.hide();
+        }
+    });
+
     $.contextMenu({
         selector: 'li.slide-thumbnail',
-        callback: function(key, options) {
+        callback: function(key/*, options*/) {
             this.trigger(key);
         },
         items: {
