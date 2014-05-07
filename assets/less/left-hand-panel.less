@@ -13,22 +13,26 @@
     margin: 20px 0;
 
     li {
-      margin: 10px 0;
+      margin: 0;
 
-      &#add-slide-button:hover .image {
-        background: #777777;
-      }
+      &#add-slide-button {
+        margin: 25px 0;
 
-      &#add-slide-button img {
-        opacity: 0.3;
-        margin: 40px 0;
+        &:hover .image {
+          background: #777777;
+        }
+
+        img {
+          opacity: 0.3;
+          margin: 40px 0;
+        }
       }
 
       .image {
         background: #666666;
         cursor: pointer;
         min-height: 50px;
-        padding: 10px;
+        padding: 2px;
         text-align: center;
       }
 
@@ -39,7 +43,6 @@
 
         &.slide-thumbnail .title {
           background: #666666;
-          color: #bbbbbb;
         }
       }
 
@@ -50,17 +53,20 @@
 
         &.slide-thumbnail .title {
           background: #355E87;
-          color: #B3B8D2;
         }
       }
 
       &.slide-thumbnail {
         .title {
-          font-size: 12px;
-          display: inline-block;
+          position: relative;
+          top: 155px;
+          font-size: 14px;
+          display: block;
           background: #555555;
-          color: #aaaaaa;
+          color: #ffffff;
           padding: 0 5px;
+          margin: 0 auto;
+          opacity: 0.7;
         }
       }
     }
