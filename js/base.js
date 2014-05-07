@@ -20,6 +20,10 @@ $(function(){
       $('.template-btn').prop('disabled', false);
     });
 
+  var clearContent = function () {
+    $('#content').html('');
+  }
+  
   var hideModal = function () {
         $('.modal').on('hidden.bs.modal', function () {
           $('.template-btn').prop('disabled', true);
@@ -27,8 +31,9 @@ $(function(){
       }
 
   $('.template-btn').click( function(){
+      clearContent();
       var type = $(this).attr('data-value');
-      var data = {type: type};
+      var data = {type: type, title: '', content: ''};
       parsedTemplate = _.template(modalTemplate, {data: data});
       $('#bootstrap-modal').html(parsedTemplate);
       $('#templateModal').modal('show');
@@ -45,7 +50,6 @@ $(function(){
   });
 
   var modalTemplate = $('#modal-template').html();
-
 
   var Template = Backbone.Model.extend({
 
@@ -88,8 +92,6 @@ $(function(){
       "click a.destroy" : "clear",
       "dblclick .view"  : "edit",
       "click .view"  : "load",
-      "click #update-title":  "update"
-
     },
 
     initialize: function() {
@@ -103,9 +105,25 @@ $(function(){
     },
 
     edit: function() {
-      parsedTemplate = _.template(modalTemplate, {data:this.model.attributes});
+      clearContent();
+      var thisModel = this.model;
+      var parsedTemplate = _.template(modalTemplate, {data:this.model.attributes});
       $('#bootstrap-modal').html(parsedTemplate);
-      $('#templateModal').modal('show');      
+      $('#templateModal').modal('show');
+
+      var type = $('#type-modal').val();
+
+      $('#save-modal-template').click(function(){       
+        if (type > 2) {
+          var filename = $('#files').val().split('\\').pop();
+          if( filename != '') $('#modal-content').val(filename);
+        }
+        var data = $('#formTemplate').serializeObject();
+        thisModel.save(data);
+        $('#templateModal').modal('hide');
+      });
+      
+      hideModal();      
       //$('#updateModal').modal('show');
       //$("#update-title").val(this.model.get('title'));
       //this.input.val('test' + Templates.get('title'));
@@ -115,18 +133,9 @@ $(function(){
         $('#content').html(this.contentTemplate(this.model.toJSON()));
     },
 
-    update: function() {
-      var value = $("#update-title").val();
-      if (!value) {
-        this.clear();
-      } else {
-        this.model.save({title: value});
-      }
-      $('#saveModal').modal('hide');
-    },
-
     clear: function() {
       this.model.destroy();
+      clearContent();
     }
 
   });
