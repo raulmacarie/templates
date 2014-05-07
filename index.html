@@ -17,45 +17,11 @@
     <button class="btn btn-primary btn-lg" id="Add-Button">
       Add
     </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="template1">Template1</h4>
-          </div>
-          <div class="modal-body">
-                  <input id="template-title" type="text">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="save-template">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  
   </div>
 
-    <!-- Update Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="template1">Template1</h4>
-          </div>
-          <div class="modal-body">
-                  <input id="update-title" type="text">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="update-template">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div id="bootstrap-modal">
+
   </div>
 
   <div id="content">
@@ -63,16 +29,16 @@
   </div>
 
   <div>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="1" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">
       Template 1
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="2" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">
       Template 2
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="3" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">
       Template 3
     </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="4" disabled="disabled">
+    <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">
       Template 4
     </button>
 
@@ -94,9 +60,48 @@
     </div>
   </script>
 
+  <script type="text/template" id="modal-template">
+    <form name="input" action="#" method="POST" id="formTemplate">
+      <div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="template1">Template design </h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="type" value="<%- data.type %>" id="type-modal"> 
+                    <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
+                    <% if(data.type == 2) { %>
+                      </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
+                    <% } else if(data.type == 3) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='image/*'/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } else if(data.type == 4) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='.ods'/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="save-modal-template">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
   <script type="text/template" id="content-template">
     <div>
       <h3><%- title %></h3>
+      <% if (type == 2) { %>
+        <p><%- content %></p>
+      <% } else if (type == 3) { %>
+        <img src="/assets/<%- content %>">
+      <% } else if (type == 4) { %> 
+          <iframe id="viewer" src = "/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
+      <% }%>
     </div>
   </script>
 
