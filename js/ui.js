@@ -22,8 +22,7 @@ $(document).ready(function () {
     $.contextMenu({
         selector: 'li.slide-thumbnail',
         callback: function(key, options) {
-            var m = "clicked: " + key;
-            window.console && console.log(m) || alert(m);
+            this.trigger(key);
         },
         items: {
             "edit": {name: "Edit", icon: "edit"},
