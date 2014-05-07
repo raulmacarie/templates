@@ -96,7 +96,6 @@ $(function(){
 
   var TemplateView = Backbone.View.extend({
 
-    
     template: _.template($('#item-template').html()),
 
     contentTemplate: _.template($('#content-template').html()),
@@ -188,8 +187,5 @@ $(function(){
     }
 
 });
-
-  var App = new AppView;
-  
 
 });
