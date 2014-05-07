@@ -4,102 +4,106 @@
 <head>
   <meta charset="utf-8">
   <title>Backbone.js Templates</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/jquery.contextMenu.css" />
+    <link rel="stylesheet/less" type="text/css" href="assets/less/style.less" />
+
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/less-1.7.0.min.js"></script>
+    <script src="js/lib/jquery.ui.position.js"></script>
+    <script src="js/lib/jquery.contextMenu.js"></script>
+
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/backbone.js"></script>
+    <script src="js/lib/backbone.localStorage.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/ui.js"></script>
 </head>
 
 <body>
-
-
-  <div id="templatesapp">
-
-    <ul id="templates-list"></ul>
-
-    <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-lg" id="Add-Button">
-      Add
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="template1">Template1</h4>
-          </div>
-          <div class="modal-body">
-                  <input id="template-title" type="text">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="save-template">Save changes</button>
-          </div>
-        </div>
+   <div id="slideshow-application">
+      <div id="left-hand-panel">
+          <ul id="templates-list">
+            <li id="add-slide-button">
+                    <div class="image" id="Add-Button">
+                        <img src="assets/images/plus.png" alt="add"/>
+                    </div>
+            </li>
+          </ul>
       </div>
-    </div>
-  </div>
-
-    <!-- Update Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="template1">Template1</h4>
-          </div>
-          <div class="modal-body">
-                  <input id="update-title" type="text">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="update-template">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="content">
     
-  </div>
 
-  <div>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="1" disabled="disabled">
-      Template 1
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="2" disabled="disabled">
-      Template 2
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="3" disabled="disabled">
-      Template 3
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-toggle="modal" data-target="#saveModal" data-value="4" disabled="disabled">
-      Template 4
-    </button>
+      <div id="bootstrap-modal"></div>
 
+      <div id="slide-panel">
+            <div id="current-slide">
+              <div id="content"></div>
+            </div>
+      </div>
+
+
+      <div id="right-hand-panel">
+        <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">Template 1</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">Template 2</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">Template 3</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">Template 4</button>
+      </div>
   </div>
   
-  <script src="js/jquery.js"></script>
-  <script src="js/underscore.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/backbone.js"></script>
-  <script src="js/backbone.localStorage.js"></script>
-  <script src="js/base.js"></script>
-
   <!-- Templates -->
-
   <script type="text/template" id="item-template">
-    <div>
-      <a class="view" href="#" data-value="<%- title %>"><%- title %></a>
-      <a class="destroy glyphicon glyphicon-remove-sign"></a>
-    </div>
+    <li class="slide-thumbnail view">
+      <span class="title"><%- title %></span>
+        <div class="image">
+            <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 140px"/>
+        </div>
+    </li>
+  </script>
+
+  <script type="text/template" id="modal-template">
+    <form name="input" action="#" method="POST" id="formTemplate">
+      <div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="template1">Template design </h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="type" value="<%- data.type %>" id="type-modal"> 
+                    <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
+                    <% if(data.type == 2) { %>
+                      </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
+                    <% } else if(data.type == 3) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='image/*'/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } else if(data.type == 4) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='.ods'/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="save-modal-template">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </script>
 
   <script type="text/template" id="content-template">
     <div>
       <h3><%- title %></h3>
-    </div>
+      <% if (type == 2) { %>
+        <p><%- content %></p>
+      <% } else if (type == 3) { %>
+        <img src="/assets/<%- content %>">
+      <% } else if (type == 4) { %> 
+          <iframe id="viewer" src = "/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
+      <% }%>
+    </div>  
   </script>
 
   </body>
