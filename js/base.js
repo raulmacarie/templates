@@ -88,10 +88,11 @@ $(function(){
     contentTemplate: _.template($('#content-template').html()),
 
     events: {
-      "delete .slide-thumbnail": "clear",
-      "edit .slide-thumbnail": "edit",
-      "dblclick .slide-thumbnail": "edit",
-      "click .slide-thumbnail": "load"
+      "delete li.slide-thumbnail": "clear",
+      "edit li.slide-thumbnail": "edit",
+
+      "dblclick li.slide-thumbnail": "edit",
+      "click li.slide-thumbnail": "load"
     },
 
     initialize: function() {
