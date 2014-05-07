@@ -82,8 +82,7 @@ $(function(){
 
   var TemplateView = Backbone.View.extend({
 
-    tagName:  "ul",
-
+    
     template: _.template($('#item-template').html()),
 
     contentTemplate: _.template($('#content-template').html()),
