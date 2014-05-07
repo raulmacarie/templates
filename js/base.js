@@ -186,6 +186,8 @@ $(function(){
       Templates.create(data);
     }
 
-});
+  });
+
+  var App = new AppView;
 
 });
