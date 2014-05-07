@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Backbone.js Templates</title>
+    <meta charset="utf-8">
+    <title>Backbone.js Templates</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/jquery.contextMenu.css" />
     <link rel="stylesheet/less" type="text/css" href="assets/less/style.less" />
@@ -22,89 +22,89 @@
 </head>
 
 <body>
-   <div id="slideshow-application">
-      <div id="left-hand-panel">
-          <ul id="templates-list">
+<div id="slideshow-application">
+    <div id="left-hand-panel">
+        <ul id="templates-list">
             <li id="add-slide-button">
-                    <div class="image" id="Add-Button">
-                        <img src="assets/images/plus.png" alt="add"/>
-                    </div>
+                <div class="image" id="Add-Button">
+                    <img src="assets/images/plus.png" alt="add"/>
+                </div>
             </li>
-          </ul>
-      </div>
-    
-
-      <div id="bootstrap-modal"></div>
-
-      <div id="slide-panel">
-            <div id="current-slide">
-              <div id="content"></div>
-            </div>
-      </div>
+        </ul>
+    </div>
 
 
-      <div id="right-hand-panel">
+    <div id="bootstrap-modal"></div>
+
+    <div id="slide-panel">
+        <div id="current-slide">
+            <div id="content"></div>
+        </div>
+    </div>
+
+
+    <div id="right-hand-panel">
         <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">Template 1</button>
         <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">Template 2</button>
         <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">Template 3</button>
         <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">Template 4</button>
-      </div>
-  </div>
-  
-  <!-- Templates -->
-  <script type="text/template" id="item-template">
+    </div>
+</div>
+
+<!-- Templates -->
+<script type="text/template" id="item-template">
     <li class="slide-thumbnail view">
-      <span class="title"><%- title %></span>
         <div class="image">
-            <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 140px"/>
+            <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 150px"/>
         </div>
+        <span class="title"><%- title %></span>
     </li>
-  </script>
+</script>
 
-  <script type="text/template" id="modal-template">
+<script type="text/template" id="modal-template">
     <form name="input" action="#" method="POST" id="formTemplate">
-      <div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="template1">Template design </h4>
+        <div class="modal fade" id="templateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="template1">Template design </h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="type" value="<%- data.type %>" id="type-modal">
+                        <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>">
+                        <% if(data.type == 2) { %>
+                        </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
+                        <% } else if(data.type == 3) { %>
+                        </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='image/*'/>
+                        <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" >
+                        <% } else if(data.type == 4) { %>
+                        </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='.ods'/>
+                        <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" >
+                        <% } %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="save-modal-template">Save changes</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                    <input type="hidden" name="type" value="<%- data.type %>" id="type-modal"> 
-                    <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
-                    <% if(data.type == 2) { %>
-                      </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
-                    <% } else if(data.type == 3) { %>
-                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='image/*'/>
-                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
-                    <% } else if(data.type == 4) { %>
-                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='.ods'/>
-                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
-                    <% } %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="save-modal-template">Save changes</button>
-            </div>
-          </div>
         </div>
-      </div>
     </form>
-  </script>
+</script>
 
-  <script type="text/template" id="content-template">
+<script type="text/template" id="content-template">
     <div>
-      <h3><%- title %></h3>
-      <% if (type == 2) { %>
+        <h3><%- title %></h3>
+        <% if (type == 2) { %>
         <p><%- content %></p>
-      <% } else if (type == 3) { %>
+        <% } else if (type == 3) { %>
         <img src="/assets/<%- content %>">
-      <% } else if (type == 4) { %> 
-          <iframe id="viewer" src = "/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
-      <% }%>
-    </div>  
-  </script>
+        <% } else if (type == 4) { %>
+        <iframe id="viewer" src = "/js/lib/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
+        <% }%>
+    </div>
+</script>
 
-  </body>
+</body>
 </html>

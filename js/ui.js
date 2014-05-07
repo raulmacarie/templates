@@ -23,8 +23,7 @@ $(document).ready(function () {
         selector: 'li.slide-thumbnail',
         callback: function(key, options) {
             var m = "clicked: " + key;
-            console.log(this);
-            
+            window.console && console.log(m) || alert(m);
         },
         items: {
             "edit": {name: "Edit", icon: "edit"},
