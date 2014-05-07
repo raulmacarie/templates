@@ -82,7 +82,7 @@ $(function(){
 
   var TemplateView = Backbone.View.extend({
 
-    tagName:  "li",
+    tagName:  "ul",
 
     template: _.template($('#item-template').html()),
 
@@ -142,7 +142,7 @@ $(function(){
 
   var AppView = Backbone.View.extend({
 
-    el: $("#templatesapp"),
+    el: $("#slideshow-application"),
 
     events: {
       "click #save-template":  "saveTemplate",
@@ -164,7 +164,7 @@ $(function(){
 
     addOne: function(template) {
       var view = new TemplateView({model: template});
-      this.$("#templates-list").append(view.render().el);
+      this.$("#templates-list").prepend(view.render().el);
     },
 
     addAll: function() {

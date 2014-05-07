@@ -4,60 +4,60 @@
 <head>
   <meta charset="utf-8">
   <title>Backbone.js Templates</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/jquery.contextMenu.css" />
+    <link rel="stylesheet/less" type="text/css" href="assets/less/style.less" />
+
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/less-1.7.0.min.js"></script>
+    <script src="js/lib/jquery.ui.position.js"></script>
+    <script src="js/lib/jquery.contextMenu.js"></script>
+    <script src="js/ui.js"></script>
+
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/backbone.js"></script>
+    <script src="js/lib/backbone.localStorage.js"></script>
+    <script src="js/base.js"></script>
 </head>
 
 <body>
-
-
-  <div id="templatesapp">
-
-    <ul id="templates-list"></ul>
-
-    <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-lg" id="Add-Button">
-      Add
-    </button>
-  
-  </div>
-
-  <div id="bootstrap-modal">
-
-  </div>
-
-  <div id="content">
+   <div id="slideshow-application">
+      <div id="left-hand-panel">
+          <ul id="templates-list">
+            <li id="add-slide-button">
+                    <div class="image" id="Add-Button">
+                        <img src="assets/images/plus.png" alt="add"/>
+                    </div>
+            </li>
+          </ul>
+      </div>
     
-  </div>
 
-  <div>
-    <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">
-      Template 1
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">
-      Template 2
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">
-      Template 3
-    </button>
-    <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">
-      Template 4
-    </button>
+      <div id="bootstrap-modal"></div>
 
+      <div id="slide-panel">
+            <div id="current-slide">
+              <div id="content"></div>
+            </div>
+      </div>
+
+
+      <div id="right-hand-panel">
+        <button class="btn btn-primary btn-lg template-btn" data-value="1" disabled="disabled">Template 1</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="2" disabled="disabled">Template 2</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="3" disabled="disabled">Template 3</button>
+        <button class="btn btn-primary btn-lg template-btn" data-value="4" disabled="disabled">Template 4</button>
+      </div>
   </div>
   
-  <script src="js/jquery.js"></script>
-  <script src="js/underscore.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/backbone.js"></script>
-  <script src="js/backbone.localStorage.js"></script>
-  <script src="js/base.js"></script>
-
   <!-- Templates -->
-
   <script type="text/template" id="item-template">
-    <div>
-      <a class="view" href="#" data-value="<%- title %>"><%- title %></a>
+    <div class="slide-thumbnail">
+      <span class="title"><%- title %></span>
+        <div class="image">
+            <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 140px"/>
+        </div>
       <a class="destroy glyphicon glyphicon-remove-sign"></a>
     </div>
   </script>
@@ -104,7 +104,7 @@
       <% } else if (type == 4) { %> 
           <iframe id="viewer" src = "/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
       <% }%>
-    </div>
+    </div>  
   </script>
 
   </body>
