@@ -74,13 +74,12 @@
             <div class="modal-body">
                     <input type="hidden" name="type" value="<%- data.type %>" id="type-modal"> 
                     <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
-                    <% 
-                      if(data.type == 2) {
-                      %></br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea><%
-                      } else if(data.type>2) {
-                        %></br><label for="file">Select file: </label><input type="file" id="files" name="files[]" title="test />
-                          <input type="hidden" name="content" value="<%- data.content %>" id="modal-content"> 
-                    <%}%>
+                    <% if(data.type == 2) { %>
+                      </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
+                    <% } else if(data.type>2) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test"/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -95,6 +94,13 @@
   <script type="text/template" id="content-template">
     <div>
       <h3><%- title %></h3>
+      <% if (type == 2) { %>
+
+      <% } else if (type == 3) { %>
+        <img src="/assets/<%- content %>">
+      <% } else if (type == 4) { %> 
+          <iframe id="viewer" src = "/ViewerJS/#../assets/<%- content %>" width='400' height='400' allowfullscreen webkitallowfullscreen></iframe>
+      <% }%>
     </div>
   </script>
 
