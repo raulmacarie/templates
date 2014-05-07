@@ -25,29 +25,43 @@ $(function(){
   }
   
   var hideModal = function () {
-        $('.modal').on('hidden.bs.modal', function () {
-          $('.template-btn').prop('disabled', true);
-        });
-      }
+    $('.modal').on('hidden.bs.modal', function () {
+      $('.template-btn').prop('disabled', true);
+    });
+  };
 
-  $('.template-btn').click( function(){
-      clearContent();
-      var type = $(this).attr('data-value');
-      var data = {type: type, title: '', content: ''};
-      parsedTemplate = _.template(modalTemplate, {data: data});
-      $('#bootstrap-modal').html(parsedTemplate);
-      $('#templateModal').modal('show');
-      $('#save-modal-template').click(function(){       
-        $('#templateModal').modal('hide');
-        if (type > 2) {
-          var filename = $('#files').val().split('\\').pop();
-          $('#modal-content').val(filename);
-        }
-        var data = $('#formTemplate').serializeObject();
-        App.saveTemplate(data);
-      });
-      hideModal();
-  });
+    $("#right-hand-panel ul li").click(function() {
+        var type,
+            data,
+            parsedTemplate,
+            fileName;
+
+        clearContent();
+
+        type = $(this).attr('data-value');
+        data = {
+            type: type,
+            title: '',
+            content: ''
+        };
+        parsedTemplate = _.template(modalTemplate, {
+            data: data
+        });
+
+        $('#bootstrap-modal').html(parsedTemplate);
+        $('#templateModal').modal('show');
+        $('#save-modal-template').click(function () {
+            $('#templateModal').modal('hide');
+            if (type > 2) {
+                fileName = $('#files').val().split('\\').pop();
+                $('#modal-content').val(fileName);
+            }
+            data = $('#formTemplate').serializeObject();
+            App.saveTemplate(data);
+        });
+
+        hideModal();
+    });
 
   var modalTemplate = $('#modal-template').html();
 
@@ -159,8 +173,9 @@ $(function(){
     },
 
     addOne: function(template) {
-      var view = new TemplateView({model: template});
-      this.$("#templates-list").prepend(view.render().el);
+        var view = new TemplateView({model: template});
+
+        this.$("#left-hand-panel ul").prepend(view.render().el);
     },
 
     addAll: function() {

@@ -1,9 +1,30 @@
 #right-hand-panel {
-  width: 15%;
+  width: 250px;
   background: #dddddd;
   height: 100%;
-  float: right;
+  position: absolute;
+  right: 0px;
   -webkit-box-shadow: -5px 0 0 0 rgba(221,221,221,0.1);
   box-shadow: -5px 0 0 0 rgba(221,221,221,0.1);
   overflow: auto;
+  z-index: 3;
+  display: none;
+
+  ul {
+    margin: 50px 0;
+    list-style-type: none;
+
+    li {
+      height: 150px;
+      width: 150px;
+      margin: 10px 0;
+      background: #bbbbbb;
+      cursor: pointer;
+      padding: 10px;
+
+      &:hover {
+        background: #cccccc;
+      }
+    }
+  }
 }
