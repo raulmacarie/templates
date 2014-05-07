@@ -76,8 +76,11 @@
                     <label for="title">Title: </label><input id="modal-title" name="title" type="text" value="<%- data.title %>"> 
                     <% if(data.type == 2) { %>
                       </br><label for="content">Text: </label><textarea type="textarea" name="content" value="<%- data.content %>" rows="4" cols="50" id="modal-content"></textarea>
-                    <% } else if(data.type>2) { %>
-                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test"/>
+                    <% } else if(data.type == 3) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='image/*'/>
+                      <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
+                    <% } else if(data.type == 4) { %>
+                      </br><label for="file">Select file: <%- data.content %></label><input type="file" id="files" name="files[]" title="test" accept='.ods'/>
                       <input type="hidden" name="content" id="modal-content" value="<%- data.content %>" > 
                     <% } %>
             </div>
