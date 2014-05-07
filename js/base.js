@@ -90,7 +90,7 @@ $(function(){
     events: {
       "click a.destroy" : "clear",
       "dblclick .view"  : "edit",
-      "click .view"  : "load",
+      "click .view"  : "load"
     },
 
     initialize: function() {
@@ -141,8 +141,7 @@ $(function(){
     el: $("#slideshow-application"),
 
     events: {
-      "click #save-template":  "saveTemplate",
-
+      "click #save-template":  "saveTemplate"
     },
 
     initialize: function() {
