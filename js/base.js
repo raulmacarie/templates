@@ -16,14 +16,10 @@ $(function(){
      return o;
   };
 
-  $('#Add-Button').click( function () {
-      $('.template-btn').prop('disabled', false);
-    });
-
   var clearContent = function () {
     $('#content').html('');
-  }
-  
+  };
+
   var hideModal = function () {
     $('.modal').on('hidden.bs.modal', function () {
       $('.template-btn').prop('disabled', true);
@@ -176,6 +172,10 @@ $(function(){
         var view = new TemplateView({model: template});
 
         this.$("#left-hand-panel ul").prepend(view.render().el);
+
+        if ('function' === typeof addSlideThumbnailsUIEvents) {
+            setTimeout('addSlideThumbnailsUIEvents()', 100);
+        }
     },
 
     addAll: function() {

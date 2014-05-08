@@ -1,5 +1,6 @@
-$(document).ready(function () {
-    $("li.slide-thumbnail *")
+function addSlideThumbnailsUIEvents() {
+    $("li.slide-thumbnail").children()
+        .unbind('hover')
         .hover(function () {
             var thumbnail = $(this).parent();
 
@@ -7,17 +8,23 @@ $(document).ready(function () {
                 thumbnail.addClass("hover");
             }
         })
+        .unbind('mouseleave')
         .mouseleave(function () {
             var thumbnail = $(this).parent();
 
             thumbnail.removeClass("hover");
         })
+        .unbind('click')
         .click(function () {
             var thumbnail = $(this).parent();
 
             $("li.slide-thumbnail").removeClass("active");
             thumbnail.removeClass("hover").addClass("active");
         });
+}
+
+$(document).ready(function () {
+    addSlideThumbnailsUIEvents();
 
     $("#add-slide-button").click(function () {
         $("#right-hand-panel").show();
