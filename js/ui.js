@@ -1,5 +1,6 @@
 function addSlideThumbnailsUIEvents() {
     $("li.slide-thumbnail").children()
+        .unbind('hover')
         .hover(function () {
             var thumbnail = $(this).parent();
 
@@ -7,11 +8,13 @@ function addSlideThumbnailsUIEvents() {
                 thumbnail.addClass("hover");
             }
         })
+        .unbind('mouseleave')
         .mouseleave(function () {
             var thumbnail = $(this).parent();
 
             thumbnail.removeClass("hover");
         })
+        .unbind('click')
         .click(function () {
             var thumbnail = $(this).parent();
 
