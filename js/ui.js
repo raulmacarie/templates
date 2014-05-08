@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function addSlideThumbnailsUIEvents() {
     $("li.slide-thumbnail *")
         .hover(function () {
             var thumbnail = $(this).parent();
@@ -18,6 +18,10 @@ $(document).ready(function () {
             $("li.slide-thumbnail").removeClass("active");
             thumbnail.removeClass("hover").addClass("active");
         });
+}
+
+$(document).ready(function () {
+    addSlideThumbnailsUIEvents();
 
     $("#add-slide-button").click(function () {
         $("#right-hand-panel").show();
