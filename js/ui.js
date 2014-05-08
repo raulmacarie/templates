@@ -1,5 +1,5 @@
 function addSlideThumbnailsUIEvents() {
-    $("li.slide-thumbnail *")
+    $("li.slide-thumbnail").children()
         .hover(function () {
             var thumbnail = $(this).parent();
 
