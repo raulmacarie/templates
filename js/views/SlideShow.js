@@ -10,16 +10,15 @@ app.views.SlideShow = Backbone.View.extend({
 
     events: {
         "click #right-hand-panel ul li" : "addSlide",
-        "click #save-modal-template": "saveTemplate",
-        "click #add-slide-button": "showTemplateList"
+        "click #save-changes": "saveChanges",
+        "click #discard-changes": "discardChanges",
+        "click #add-slide-button": "showTemplates"
     },
 
     initialize: function() {
-//        this.input = this.$("#template-title");
-//        this.listenTo(app.Templates, 'add', this.addOne);
-//        //eventBus.on('save:Template', this.saveTemplate, this);
-        this.slidesCollection = new app.collections.Slides;
-        this.slidesCollection.fetch();
+        this.slides = new app.collections.Slides;
+        this.listenTo(this.slides, 'add', this.addSlideToLeftHandPanel);
+        this.slides.fetch();
     },
 
     render: function() {
@@ -27,34 +26,34 @@ app.views.SlideShow = Backbone.View.extend({
         return this;
     },
 
-    showTemplateList: function () {
-        router.navigate('add', true);
+    showTemplates: function () {
+        SlideShow.router.navigate('add', true);
     },
 
     addSlide: function (template) {
-        var type = template.currentTarget.attr('data-value'),
+        var type = $(template.currentTarget).attr('data-type'),
             data = {
                 type: type,
                 title: 'Title',
                 content: ''
             };
+
+        this.saveTemplate(data);
     },
 
-    addOne: function(template) {
-        var view = new app.views.Template({model: template});
+    addSlideToLeftHandPanel: function (slide) {
+        var view = new app.views.Slide({
+            model: slide
+        });
 
-        this.$("#left-hand-panel ul").append(view.render().el);
+        $("#left-hand-panel").find("ul").prepend(view.render().el);
 
         if ('function' === typeof addSlideThumbnailsUIEvents) {
             setTimeout('addSlideThumbnailsUIEvents()', 100);
         }
     },
 
-    addAll: function() {
-        this.slidesCollection.each(this.addOne, this);
-    },
-
     saveTemplate: function(data) {
-        this.slidesCollection.create(data);
+        this.slides.create(data);
     }
 });

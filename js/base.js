@@ -1,4 +1,31 @@
 $(function(){
+
+//  $.fn.serializeObject = function() {
+//     var o = {};
+//     var a = this.serializeArray();
+//     $.each(a, function() {
+//         if (o[this.name]) {
+//             if (!o[this.name].push) {
+//                 o[this.name] = [o[this.name]];
+//             }
+//             o[this.name].push(this.value || '');
+//         } else {
+//             o[this.name] = this.value || '';
+//         }
+//     });
+//     return o;
+//  };
+//
+//  var clearContent = function () {
+//    $('#content').html('');
+//  };
+//
+//  var hideModal = function () {
+//    $('.modal').on('hidden.bs.modal', function () {
+//      $('.template-btn').prop('disabled', true);
+//    });
+//  };
+
     $("#right-hand-panel ul li").click(function() {
         var type,
             data,
@@ -31,6 +58,37 @@ $(function(){
 
         hideModal();
     });
+
+  var modalTemplate = $('#modal-template').html();
+
+  var Template = Backbone.Model.extend({
+
+    defaults: function() {
+      return {
+        type: '',
+        title: 'Unknown title',
+        content: ''
+      };
+    },
+    initialize: function() {
+      if (!this.get("title")) {
+        this.set({"title": this.defaults().title});
+      }
+    },
+
+
+  });
+
+//  var CreatedTemplatesList = Backbone.Collection.extend({
+//
+//    model: Template,
+//
+//    localStorage: new Backbone.LocalStorage("templates-backbone")
+//
+//  });
+
+//  var Templates = new CreatedTemplatesList;
+
 
   var TemplateView = Backbone.View.extend({
     template: _.template($('#item-template').html()),
@@ -105,10 +163,6 @@ $(function(){
       Templates.fetch();
     },
 
-    render: function() {
-
-    },
-
     addOne: function(template) {
         var view = new TemplateView({model: template});
 
@@ -117,10 +171,6 @@ $(function(){
         if ('function' === typeof addSlideThumbnailsUIEvents) {
             setTimeout('addSlideThumbnailsUIEvents()', 100);
         }
-    },
-
-    addAll: function() {
-      Templates.each(this.addOne, this);
     },
 
     saveTemplate: function(data) {

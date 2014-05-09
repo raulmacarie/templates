@@ -7,5 +7,5 @@ var app = app || {
 
 app.collections.Slides = Backbone.Collection.extend({
     model: app.models.Slide,
-    localStorage: new Backbone.LocalStorage("slides")
+    localStorage: new Backbone.LocalStorage("slides-backbone")
 });
