@@ -26,19 +26,6 @@ function addSlideThumbnailsUIEvents() {
 $(document).ready(function () {
     addSlideThumbnailsUIEvents();
 
-    $("#add-slide-button").click(function () {
-        $("#right-hand-panel").show();
-    });
-
-    $("body").mousedown(function (e) {
-        var rightHandPanel = $("#right-hand-panel");
-
-        if (e.target !== rightHandPanel[0]
-                && !rightHandPanel.find(e.target).length) {
-            rightHandPanel.hide();
-        }
-    });
-
     $.contextMenu({
         selector: 'li.slide-thumbnail',
         callback: function(key/*, options*/) {
