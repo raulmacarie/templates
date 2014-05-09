@@ -22,12 +22,10 @@ app.routers.Router = Backbone.Router.extend({
     },
 
     viewSlide: function (id) {
-        console.log('view slide');
         $("#right-hand-panel").hide();
 
         SlideShow.slides.each(function (model) {
             if (model.id === id) {
-                console.log(model);
                 model.trigger('viewslide');
             }
         });
