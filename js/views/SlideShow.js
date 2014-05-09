@@ -27,7 +27,7 @@ app.views.SlideShow = Backbone.View.extend({
     },
 
     showTemplates: function () {
-        router.navigate('add', true);
+        SlideShow.router.navigate('add', true);
     },
 
     addSlide: function (template) {

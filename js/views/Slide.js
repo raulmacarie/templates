@@ -12,15 +12,17 @@ app.views.Slide = Backbone.View.extend({
 
     events: {
         "delete li.slide-thumbnail": "deleteSlide",
-        "edit li.slide-thumbnail": "editSlide",
+        "edit li.slide-thumbnail": "routeToEditSlide",
 
-        "dblclick li.slide-thumbnail": "editSlide",
-        "click li.slide-thumbnail": "viewSlide"
+        "dblclick li.slide-thumbnail": "routeToEditSlide",
+        "click li.slide-thumbnail": "routeToViewSlide"
     },
 
-    initialize: function() {
+    initialize: function () {
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'destroy', this.remove);
+        this.listenTo(this.model, 'viewslide', this.viewSlide);
+        this.listenTo(this.model, 'editslide', this.editSlide);
     },
 
     render: function () {
@@ -28,9 +30,16 @@ app.views.Slide = Backbone.View.extend({
         return this;
     },
 
-    viewSlide: function() {
-//        router.navigate('slide/' + this.model.id);
+    routeToViewSlide: function () {
+        SlideShow.router.navigate('slide/' + this.model.id, true);
+    },
+
+    viewSlide: function () {
         $("#current-slide").html(this.contentTemplate(this.model.toJSON()));
+    },
+
+    routeToEditSlide: function () {
+        SlideShow.router.navigate('edit/' + this.model.id, true);
     },
 
     editSlide: function() {
@@ -57,16 +66,16 @@ app.views.Slide = Backbone.View.extend({
             }
 
             data = {
-                title: $("#edit-slide-title").val(),
+                title: $("#edit-slide-title").val().trim() || model.attributes.title,
                 content: $("#edit-slide-content").val()
             };
 
             model.save(data);
-            view.viewSlide();
+            view.routeToViewSlide();
         });
 
         $("#discard-changes").unbind('click').click(function () {
-            view.viewSlide();
+            view.routeToViewSlide();
         });
     },
 

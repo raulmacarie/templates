@@ -24,8 +24,6 @@ function addSlideThumbnailsUIEvents() {
 }
 
 $(document).ready(function () {
-    addSlideThumbnailsUIEvents();
-
     $.contextMenu({
         selector: 'li.slide-thumbnail',
         callback: function(key/*, options*/) {
