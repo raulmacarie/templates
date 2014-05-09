@@ -29,6 +29,14 @@ $(document).ready(function () {
     $.contextMenu({
         selector: 'li.slide-thumbnail',
         callback: function(key/*, options*/) {
+            switch (key) {
+                case "edit":
+                    $("li.slide-thumbnail").removeClass("active");
+                    this.addClass("active");
+                    break;
+                case "delete":
+                    break;
+            }
             this.trigger(key);
         },
         items: {
