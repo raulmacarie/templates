@@ -31,14 +31,8 @@ app.views.SlideShow = Backbone.View.extend({
     },
 
     addSlide: function (template) {
-        var type = $(template.currentTarget).attr('data-type'),
-            data = {
-                type: type,
-                title: 'Title',
-                content: ''
-            };
-
-        this.saveTemplate(data);
+        var type = $(template.currentTarget).attr('data-type');
+        SlideShow.router.navigate('new/' + type,true);
     },
 
     addSlideToLeftHandPanel: function (slide) {

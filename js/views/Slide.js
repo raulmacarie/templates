@@ -30,8 +30,11 @@ app.views.Slide = Backbone.View.extend({
         return this;
     },
 
-    routeToViewSlide: function () {
-        SlideShow.router.navigate('slide/' + this.model.id, true);
+    routeToViewSlide: function (id) {
+        var slideID;
+        if (typeof id === 'object') slideID = this.model.id;
+        else slideID = id;
+        SlideShow.router.navigate('slide/' + slideID, true);
     },
 
     viewSlide: function () {
@@ -49,6 +52,8 @@ app.views.Slide = Backbone.View.extend({
             currentSlide = $("#current-slide"),
             parsedTemplate,
             data,
+            pages = -1,
+            id = model.id,
             type = model.attributes.type,
             fileName;
 
@@ -66,21 +71,32 @@ app.views.Slide = Backbone.View.extend({
             }
 
             data = {
+                type: type,
                 title: $("#edit-slide-title").val().trim() || model.attributes.title,
-                content: $("#edit-slide-content").val()
+                content: $("#edit-slide-content").val(),
             };
 
-            model.save(data);
-            view.routeToViewSlide();
+            if (!id) 
+                SlideShow.slides.create(data, {
+                    success: function(model) {
+                        view.routeToViewSlide(model.id);
+                    } 
+                });
+            else
+                model.save(data, {
+                    success: function(model) {
+                        view.routeToViewSlide(model.id);
+                    }
+                });
         });
 
         $("#discard-changes").unbind('click').click(function () {
-            view.routeToViewSlide();
+           if (!id) {currentSlide.html(""); SlideShow.router.navigate('', true);}
+            else view.routeToViewSlide(model.id);
         });
     },
 
     deleteSlide: function() {
         this.model.destroy();
-//        clearContent();
     }
 });
