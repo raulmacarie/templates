@@ -114,5 +114,6 @@ app.views.Slide = Backbone.View.extend({
 
     deleteSlide: function() {
         this.model.destroy();
+        SlideShow.router.navigate('', true);
     }
 });
