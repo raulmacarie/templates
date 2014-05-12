@@ -14,7 +14,14 @@ app.routers.Router = Backbone.Router.extend({
     },
 
     home: function () {
+        var models = SlideShow.slides.models,
+            firstModel = models.length > 0 ? models[models.length -1] : null;
+
         $("#right-hand-panel").hide();
+
+        if (firstModel) {
+            this.navigate('slide/' + firstModel.id, true);
+        }
     },
 
     addSlide: function () {

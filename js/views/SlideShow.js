@@ -31,14 +31,9 @@ app.views.SlideShow = Backbone.View.extend({
     },
 
     addSlide: function (template) {
-        var type = $(template.currentTarget).attr('data-type'),
-            data = {
-                type: type,
-                title: 'Title',
-                content: ''
-            };
+        var type = $(template.currentTarget).attr('data-type');
 
-        this.saveTemplate(data);
+        SlideShow.router.navigate('new/' + type, true);
     },
 
     addSlideToLeftHandPanel: function (slide) {
@@ -51,9 +46,5 @@ app.views.SlideShow = Backbone.View.extend({
         if ('function' === typeof addSlideThumbnailsUIEvents) {
             setTimeout('addSlideThumbnailsUIEvents()', 100);
         }
-    },
-
-    saveTemplate: function(data) {
-        this.slides.create(data);
     }
 });

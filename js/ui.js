@@ -33,6 +33,7 @@ $(document).ready(function () {
                     this.addClass("active");
                     break;
                 case "delete":
+                    $("#right-hand-panel").hide();
                     break;
             }
             this.trigger(key);

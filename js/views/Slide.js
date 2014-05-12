@@ -30,12 +30,25 @@ app.views.Slide = Backbone.View.extend({
         return this;
     },
 
-    routeToViewSlide: function () {
-        SlideShow.router.navigate('slide/' + this.model.id, true);
+    setAsActiveThumbnail: function () {
+        this.$el.find('li.slide-thumbnail').addClass('active');
+    },
+
+    routeToViewSlide: function (id) {
+        var slideId;
+
+        if (typeof id === 'object') {
+            slideId = this.model.id;
+        } else {
+            slideId = id;
+        }
+
+        SlideShow.router.navigate('slide/' + slideId, true);
     },
 
     viewSlide: function () {
         $("#current-slide").html(this.contentTemplate(this.model.toJSON()));
+        this.setAsActiveThumbnail();
     },
 
     routeToEditSlide: function () {
@@ -50,7 +63,10 @@ app.views.Slide = Backbone.View.extend({
             parsedTemplate,
             data,
             type = model.attributes.type,
+            id = model.id,
             fileName;
+
+        this.setAsActiveThumbnail();
 
         currentSlide.html("");
 
@@ -66,21 +82,37 @@ app.views.Slide = Backbone.View.extend({
             }
 
             data = {
+                type: type,
                 title: $("#edit-slide-title").val().trim() || model.attributes.title,
                 content: $("#edit-slide-content").val()
             };
 
-            model.save(data);
-            view.routeToViewSlide();
+            if (!id) {
+                SlideShow.slides.create(data, {
+                    success: function(model) {
+                        view.routeToViewSlide(model.id);
+                    }
+                });
+            } else {
+                model.save(data, {
+                    success: function(model) {
+                        view.routeToViewSlide(model.id);
+                    }
+                });
+            }
         });
 
         $("#discard-changes").unbind('click').click(function () {
-            view.routeToViewSlide();
+            if (!id) {
+                currentSlide.html("");
+                SlideShow.router.navigate('', true);
+            } else {
+                view.routeToViewSlide(model.id);
+            }
         });
     },
 
     deleteSlide: function() {
         this.model.destroy();
-//        clearContent();
     }
 });
