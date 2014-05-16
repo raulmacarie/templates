@@ -1,11 +1,14 @@
-var app = app || {
-    collections: {},
-    models: {},
-    routers: {},
-    views: {}
-};
+define(
+  [ "backbone",
+  	"blocalstorage",
+  	"models/Slide"
+  ], function(Backbone, LocalStorage, Slide) { 
 
-app.collections.Slides = Backbone.Collection.extend({
-    model: app.models.Slide,
-    localStorage: new Backbone.LocalStorage("slides-backbone")
+  	var model = Slide;
+  	var Slides = Backbone.Collection.extend ({
+	    model: model,
+	    localStorage: new Backbone.LocalStorage("slides-backbone")
+  	})
+  	
+  	return Slides;
 });

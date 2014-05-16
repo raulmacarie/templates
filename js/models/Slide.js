@@ -1,21 +1,21 @@
-var app = app || {
-    collections: {},
-    models: {},
-    routers: {},
-    views: {}
-};
+define(
+  [ "backbone"
+  ], function(Backbone, validation, UserModelm, template) { 
 
-app.models.Slide = Backbone.Model.extend({
-    defaults: function() {
-        return {
-            type: '',
-            title: 'Title',
-            content: ''
-        };
-    },
-    initialize: function() {
-        if (!this.get("title")) {
-            this.set({"title": this.defaults().title});
+ 	var Slide = Backbone.Model.extend ({
+        defaults: function() {
+            return {
+                type: '',
+                title: 'Title',
+                content: ''
+            };
+        },
+        initialize: function() {
+            if (!this.get("title")) {
+                this.set({"title": this.defaults().title});
+            }
         }
-    }
+  	})
+
+    return Slide;
 });

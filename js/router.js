@@ -1,64 +1,75 @@
-var app = app || {
-    collections: {},
-    models: {},
-    routers: {},
-    views: {}
-};
+define(
+  [ "backbone",
+    "models/Slide",
+    "collections/Slides",
+    "views/Slides",
+    "views/ViewSlide",
+    "views/EditSlide",
+    "blocalstorage"
+], function(Backbone, ModelSlide, SlidesCollection, SlidesThumbnail, ViewSlide, EditSlide, localStorage) {
 
-app.routers.Router = Backbone.Router.extend({
-    routes: {
-        '' : 'home',
-        'add' : 'addSlide',
-        'slide/:id': 'viewSlide',
-        'edit/:id': 'editSlide',
-        'new/:id': 'editSlide'
-    },
+  function AppView(){
+ 
+   alert('here');
+   // this.showView(view) {
+   //  if (this.currentView){
+   //    this.currentView.close();
+   //  }
+ 
+   //  this.currentView = view;
+   //  this.currentView.render();
+ 
+   //  $("#mainContent").html(this.currentView.el);
+  }
+ 
+  var AppRouter = Backbone.Router.extend({
+        routes: {
+            '' : 'home',
+            'view/:id' : 'viewSlide',
+            'edit/:id' : 'editSlide',
+            'add/:id' : 'editSlide',
+            '*actions' : 'home'
+        },
 
-    home: function () {
-        var models = SlideShow.slides.models,
-            firstModel = models.length > 0 ? models[models.length -1] : null;
-
-        $("#right-hand-panel").hide();
-
-        if (firstModel) {
-            this.navigate('slide/' + firstModel.id, true);
-        }
-    },
-
-    addSlide: function () {
-        $("#right-hand-panel").show();
-    },
-
-    viewSlide: function (id) {
-        $("#right-hand-panel").hide();
-
-        SlideShow.slides.each(function (model) {
-            if (model.id === id) {
-                model.trigger('viewslide');
-            }
-        });
-    },
-
-    editSlide: function (id) {
-        $("#right-hand-panel").hide();
-        if ((id >= 1) && (id <=4)) {
+        initialize: function() {
+          slidesCollection = new SlidesCollection;
+          slidesCollection.fetch();
+          
+          var slidesThumbnail = new SlidesThumbnail();
+        },
+        
+        home: function() {
             
-            Model.set({ 'type' : id });
-            var view = new app.views.Slide({
-                model: Model
-            });
+            var firstSlide = slidesCollection.length > 0 ? slidesCollection.models[slidesCollection.length -1] : null;
 
-            view.model.trigger('editslide');
-        }
-        else
-        SlideShow.slides.each(function (model) {
-            if (model.id === id) {
-                model.trigger('editslide');
+            if (firstSlide) {
+                this.navigate('view/' + firstSlide.id, true);
+            }else{$('#slide-panel').html('');}
+        },
+
+        viewSlide: function(id) {
+          var model = slidesCollection.get(id);
+          var viewSlide = new ViewSlide({model: model});
+ 
+       }, 
+
+       editSlide: function(id) {
+            console.log(id);
+            if ((id>=1) && (id<=4)) {
+              var model = new ModelSlide();        
+              model.set({'type' : id});
+              editSlide = new EditSlide({ model: model});
+            }else{
+              var model = slidesCollection.get(id);
+              var editSlide = new EditSlide({model: model});
             }
-        });
-    }
+        },
+
+        resetView: function () {
+
+        }
+    });
+  
+  return AppRouter;
+
 });
-
-SlideShow.router = new app.routers.Router();
-
-Backbone.history.start();
