@@ -34,6 +34,13 @@ define(
         },
 
         viewSlide: function(id) {
+
+          if (typeof(interval) === 'undefined') {
+            console.log('undefined');
+          }else{
+           clearInterval(interval);;
+          }
+          
           var position = 0, currentSlide, nextSlide;
 
           slidesCollection.each( function(model) {
@@ -48,7 +55,8 @@ define(
           else {nextSlide = currentSlide -1;}
 
           var nextID = slidesCollection.models[nextSlide].id;
-          setInterval(function(){ app_router.navigate('view/' + nextID, true);},20000);
+          interval = setInterval(function(){ app_router.navigate('view/' + nextID, true);},20000);
+          
  
        }, 
 
