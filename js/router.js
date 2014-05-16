@@ -7,20 +7,6 @@ define(
     "views/EditSlide",
     "blocalstorage"
 ], function(Backbone, ModelSlide, SlidesCollection, SlidesThumbnail, ViewSlide, EditSlide, localStorage) {
-
-  function AppView(){
- 
-   alert('here');
-   // this.showView(view) {
-   //  if (this.currentView){
-   //    this.currentView.close();
-   //  }
- 
-   //  this.currentView = view;
-   //  this.currentView.render();
- 
-   //  $("#mainContent").html(this.currentView.el);
-  }
  
   var AppRouter = Backbone.Router.extend({
         routes: {
@@ -66,7 +52,7 @@ define(
         },
 
         resetView: function () {
-
+            //still undecided about this
         }
     });
   
