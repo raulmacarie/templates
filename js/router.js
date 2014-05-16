@@ -26,6 +26,12 @@ define(
         
         home: function() {
             
+            if (typeof(interval) === 'undefined') {
+              console.log('undefined');
+            }else{
+             clearInterval(interval);;
+            }
+
             var firstSlide = slidesCollection.length > 0 ? slidesCollection.models[slidesCollection.length -1] : null;
 
             if (firstSlide) {
@@ -57,10 +63,16 @@ define(
           var nextID = slidesCollection.models[nextSlide].id;
           interval = setInterval(function(){ app_router.navigate('view/' + nextID, true);},20000);
           
- 
        }, 
 
        editSlide: function(id) {
+
+            if (typeof(interval) === 'undefined') {
+              console.log('undefined');
+            }else{
+             clearInterval(interval);;
+            }
+
             if ((id>=1) && (id<=5)) {
               var model = new ModelSlide();        
               model.set({'type' : id});
