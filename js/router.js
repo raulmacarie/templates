@@ -34,14 +34,26 @@ define(
         },
 
         viewSlide: function(id) {
-          var model = slidesCollection.get(id);
-          var viewSlide = new ViewSlide({model: model});
+          var position = 0, currentSlide, nextSlide;
+
+          slidesCollection.each( function(model) {
+            if (model.id === id) {
+              var viewSlide = new ViewSlide({model: model});
+              currentSlide = position;
+            }
+            position ++
+          })
+
+          if (currentSlide == 0) {nextSlide = slidesCollection.length-1;}
+          else {nextSlide = currentSlide -1;}
+
+          var nextID = slidesCollection.models[nextSlide].id;
+          setInterval(function(){ app_router.navigate('view/' + nextID, true);},20000);
  
        }, 
 
        editSlide: function(id) {
-            console.log(id);
-            if ((id>=1) && (id<=4)) {
+            if ((id>=1) && (id<=5)) {
               var model = new ModelSlide();        
               model.set({'type' : id});
               editSlide = new EditSlide({ model: model});
