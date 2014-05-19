@@ -1,0 +1,24 @@
+<div id="current-slide">
+    <div id="view-slide">
+        <div class="title">
+            <h1><%- title %></h1>
+        </div>
+        <% if (type == 2 || type == 3 || type == 4 || type == 5) { %>
+        <div class="content type<%- type %>">
+            <% if (type == 2) { %>
+            <%- content %>
+            <% } else if (type == 3) { %>
+            <img src="/assets/<%- content %>">
+            <% } else if (type == 4) { %>
+            <iframe id="viewer" src = "/js/library/ViewerJS/#../../../assets/<%- content %>" width="400" height="400" allowfullscreen webkitallowfullscreen></iframe>
+            <% } else if (type == 5) { %>
+            <iframe width="560" height="315" src="//www.youtube.com/embed/<%- content %>" frameborder="0" allowfullscreen></iframe>
+            <% }%>
+        </div>
+        <% } %>
+        <div class="actions">
+            <button id="delete-slide-button">Delete</button>
+            <button id="edit-slide-button">Edit</button>
+        </div>
+    </div>
+</div>

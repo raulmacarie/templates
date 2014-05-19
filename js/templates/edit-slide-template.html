@@ -1,0 +1,34 @@
+<div id="current-slide">
+    <div id="edit-slide">
+        <div class="title">
+            <input id="edit-slide-title" type="text" value="<%- title %>"/>
+        </div>
+        <% if (type == 2 || type == 3 || type == 4 || type == 5) { %>
+        <div class="content type<%- type %>">
+            <% if(type == 2) { %>
+            <textarea id="edit-slide-content"><%- content %></textarea>
+            <% } else if(type == 3) { %>
+            Select file: <%- content %>
+            <br/>
+            <input type="file" id="files" title="File" accept='image/*'/>
+            <input type="hidden" id="edit-slide-content" value="<%- content %>" >
+            <% } else if(type == 4) { %>
+            Select file: <%- content %>
+            <br/>
+            <input type="file" id="files" title="File" accept='.ods'/>
+            <input type="hidden" id="edit-slide-content" value="<%- content %>" >
+            <% } else if(type == 5) { %>
+            Add youtube id:
+            <br/>
+            <input type="input" id="edit-slide-content" value="<%- content %>" >
+            <% } %>
+        </div>
+        <% } %>
+        </br>
+        </br>
+        <div class="actions">
+            <button id="discard-changes">Discard Changes</button>
+            <button id="save-changes" data-id="">Save changes</button>
+        </div>
+    </div>
+</div>
