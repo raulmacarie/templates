@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SlideShow</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/jquery.contextMenu.css" />
+    <link rel="stylesheet/less" type="text/css" href="assets/less/style.less" />
+</head>
+<body>
+    <div id="slideshow-application">
+        <div id="left-hand-panel">
+            <ul>
+                <li id="add-slide-button">
+                    <div class="image">
+                        <img src="assets/images/plus.png" alt="add"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="slide-panel">
+            <div id="current-slide">
+            </div>
+        </div>
+
+        <div id="right-hand-panel">
+            <ul>
+                <li data-type="1">
+                    <div class="title"></div>
+                </li>
+                <li data-type="2">
+                    <div class="title"></div>
+                    <div class="text"></div>
+                </li>
+                <li data-type="3">
+                    <div class="title"></div>
+                    <div class="image"></div>
+                </li>
+                <li data-type="4">
+                    <div class="title"></div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/template" id="slide-thumbnail-template">
+        <li class="slide-thumbnail">
+            <div class="image">
+                <img src="http://naomibennett.co.uk/Images/powerpoint1.jpg" style="height: 160px; width: 190px"/>
+            </div>
+            <span class="title"><%- title %></span>
+        </li>
+    </script>
+
+    <script type="text/template" id="edit-slide-template">
+        <div id="edit-slide">
+            <div class="title">
+                <input id="edit-slide-title" type="text" value="<%- title %>"/>
+            </div>
+            <% if (type == 2 || type == 3 || type == 4) { %>
+            <div class="content type<%- type %>">
+                <% if(type == 2) { %>
+                <textarea id="edit-slide-content"><%- content %></textarea>
+                <% } else if(type == 3) { %>
+                Select file: <%- content %>
+                <br/>
+                <input type="file" id="files" title="File" accept='image/*'/>
+                <input type="hidden" id="edit-slide-content" value="<%- content %>" >
+                <% } else if(type == 4) { %>
+                Select file: <%- content %>
+                <br/>
+                <input type="file" id="files" title="File" accept='.ods'/>
+                <input type="hidden" id="edit-slide-content" value="<%- content %>" >
+                <% } %>
+            </div>
+            <% } %>
+            <div class="actions">
+                <button id="discard-changes">Discard changes</button>
+                <button id="save-changes">Save changes</button>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="view-slide-template">
+        <div id="view-slide">
+            <div class="title">
+                <h1><%- title %></h1>
+            </div>
+            <% if (type == 2 || type == 3 || type == 4) { %>
+            <div class="content type<%- type %>">
+                <% if (type == 2) { %>
+                <%- content %>
+                <% } else if (type == 3) { %>
+                <img src="/assets/<%- content %>">
+                <% } else if (type == 4) { %>
+                <iframe id="viewer" src = "/js/lib/ViewerJS/#../../../assets/<%- content %>" width="400" height="400" allowfullscreen webkitallowfullscreen></iframe>
+                <% }%>
+            </div>
+            <% } %>
+        </div>
+    </script>
+
+    <!-- LIB -->
+    <script src="js/lib/less-1.7.0.min.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/jquery.ui.position.js"></script>
+    <script src="js/lib/jquery.contextMenu.js"></script>
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/lib/backbone.js"></script>
+    <script src="js/lib/backbone.localStorage.js"></script>
+
+    <!-- MODELS -->
+    <script src="js/models/Slide.js"></script>
+
+    <!-- COLLECTIONS -->
+    <script src="js/collections/Slides.js"></script>
+
+    <!-- VIEWS -->
+    <script src="js/views/Slide.js"></script>
+    <script src="js/views/SlideShow.js"></script>
+
+    <!-- APPLICATION -->
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+</body>
+</html>
